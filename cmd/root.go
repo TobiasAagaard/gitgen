@@ -1,6 +1,9 @@
 package cmd
 
-func Execute() {
+import "fmt"
+
+func Execute() error {
 	// Implementation of command execution
-	println("command execution work in progress")
+	fmt.Println("command execution work in progress")
+	return nil
 }
