@@ -1,6 +1,7 @@
 package config
 
 type Config struct {
+	App    AppConfig    `mapstructure:"app"`
 	Claude ClaudeConfig `mapstructure:"claude"`
 	Git    GitConfig    `mapstructure:"git"`
 }

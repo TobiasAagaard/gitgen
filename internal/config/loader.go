@@ -25,7 +25,7 @@ func ConfigExists() bool {
 	return err == nil
 }
 
-func load() error {
+func Load() error {
 	dir, err := configHome()
 	if err != nil {
 		return err
@@ -63,8 +63,18 @@ func Save(cfg Config) error {
 	if err != nil {
 		return err
 	}
-	if err := os.MkdirAll(dir, 0o755); err != nil {
+	if err := os.MkdirAll(dir, 0o700); err != nil {
 		return err
 	}
-	return nil
+
+	viper.Set("app.ai_provider", cfg.App.AIProvider)
+	viper.Set("claude.api_key", cfg.Claude.APIkey)
+	viper.Set("claude.model", cfg.Claude.Model)
+	viper.Set("claude.max_tokens", cfg.Claude.MaxTokens)
+	viper.Set("claude.temperature", cfg.Claude.Temperature)
+	viper.Set("git.branch_prefix", cfg.Git.BranchPrefix)
+	viper.Set("git.commit_style", cfg.Git.CommitStyle)
+
+	path := filepath.Join(dir, "config.yaml")
+	return viper.WriteConfigAs(path)
 }
