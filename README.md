@@ -37,7 +37,7 @@ Config is saved to `~/.config/gitgen/config.yaml`.
 
 ## Documentation
 
-- Command:
+- Commands:
 	- `gitgen`, `gitgen setup`
 		- Runs the app. If configuration is missing or invalid, it launches interactive setup.
 - Config file: `~/.config/gitgen/config.yaml`
