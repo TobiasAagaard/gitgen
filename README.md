@@ -27,17 +27,19 @@ go install github.com/TobiasAagaard/gitgen@latest
 # Run the CLI
 gitgen
 
-### First Run gitgen or gitgen setup
+# First Run gitgen or gitgen setup
 - Choose the AI provider: `only supports claude API`
 - Enter your Claude API key (hidden input)
 - Optionally set the model (default: `claude-3-5-sonnet-20241022`)
 
 Config is saved to `~/.config/gitgen/config.yaml`.
+```
 
 ## Documentation
 
-- Command: `gitgen`
-	- Runs the app. If configuration is missing or invalid, it launches interactive setup.
+- Command:
+	- `gitgen`, `gitgen setup`
+		- Runs the app. If configuration is missing or invalid, it launches interactive setup.
 - Config file: `~/.config/gitgen/config.yaml`
 	- `claude.api_key`: Claude API key
 	- `claude.model`: Claude model name
@@ -54,30 +56,6 @@ Config is saved to `~/.config/gitgen/config.yaml`.
 - Case-sensitive filename issues on macOS:
 	- Use lowercase file names consistently (e.g., `internal/config/config.go`, `internal/config/loader.go`, `internal/ui/firstrun.go`).
 
-# Development
-
-# Build using Go
-go build -o bin/gitgen .
-
-# Or use Make:
-make build
-
-# Run the app
-./bin/gitgen
-# Or:
-make run
-
-# Tidy dependencies
-go mod tidy
-# Or:
-make tidy
-
-# Run tests
-make test
-
 
 ## CI
 The GitHub Actions workflow uses `go-version-file: go.mod`, so CI installs Go `1.25.x` as declared in `go.mod`.
-
-
-
