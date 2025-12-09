@@ -5,6 +5,10 @@ type Config struct {
 	Git    GitConfig    `mapstructure:"git"`
 }
 
+type AppConfig struct {
+	AIProvider string
+}
+
 type ClaudeConfig struct {
 	APIkey      string  `mapstructure:"api_key"`
 	Model       string  `mapstructure:"model"`
@@ -17,7 +21,7 @@ type GitConfig struct {
 	CommitStyle  string `mapstructure:"commit_style"`
 }
 
-var AppConfig Config
+var AppConfigState Config
 
 func InitConfig() {
 	// Configuration initialization logic goes here
