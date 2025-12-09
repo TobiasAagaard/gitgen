@@ -1,16 +1,16 @@
 # gitgen
 
-🚀 AI-powered CLI tool to generate git commit messages and branch names
+ CLI tool to generate git commit messages and branch names
 
 ## Features
 
-- 🤖 **AI-Powered**: Uses Claude AI to analyze your code changes and generate meaningful suggestions
-- 📝 **Commit Messages**: Generate commit messages following conventional commits or your preferred style
-- 🌿 **Branch Names**: Generate descriptive branch names based on your changes
-- ⚡ **Combined Mode**: Generate both commit message and branch name in one go
-- 👀 **Preview Mode**: Preview suggestions before executing
-- 🔧 **Configurable**: Customize styles, prefixes, and AI parameters
-- 🎯 **Best Practices**: Follows Cobra and Viper patterns for CLI apps
+-  **AI-Powered**: Uses Claude AI to analyze your code changes and generate meaningful suggestions
+-  **Commit Messages**: Generate commit messages following conventional commits or your preferred style
+-  **Branch Names**: Generate descriptive branch names based on your changes
+-  **Combined Mode**: Generate both commit message and branch name in one go
+-  **Preview Mode**: Preview suggestions before executing
+-  **Configurable**: Customize styles, prefixes, and AI parameters
+-  **Best Practices**: Follows Cobra and Viper patterns for CLI apps
 
 ## Installation
 
