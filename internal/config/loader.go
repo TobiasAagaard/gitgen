@@ -57,3 +57,14 @@ func load() error {
 	AppConfigState = configCheck
 	return nil
 }
+
+func Save(cfg Config) error {
+	dir, err := configHome()
+	if err != nil {
+		return err
+	}
+	if err := os.MkdirAll(dir, 0o755); err != nil {
+		return err
+	}
+	return nil
+}
