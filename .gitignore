@@ -1,0 +1,30 @@
+gitgen
+*. exe
+*.exe~
+*.dll
+*.so
+*.dylib
+
+# Test binary
+*.test
+
+# Output of the go coverage tool
+*.out
+
+# Go workspace file
+go.work
+
+# Configuration files with secrets
+.gitgen.yaml
+config.yaml
+
+# IDE
+.vscode/
+.idea/
+*. swp
+*.swo
+*~
+
+# OS
+.DS_Store
+Thumbs.db
