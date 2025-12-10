@@ -1,4 +1,5 @@
 # GitGen CLI
+![CodeRabbit Pull Request Reviews](https://img.shields.io/coderabbit/prs/github/TobiasAagaard/gitgen?utm_source=oss&utm_medium=github&utm_campaign=TobiasAagaard%2Fgitgen&labelColor=171717&color=FF570A&link=https%3A%2F%2Fcoderabbit.ai&label=CodeRabbit+Reviews)
 
 GitGen helps generate AI-assisted Git branch names and commit messages. On first run, it guides you through a quick setup to choose the AI provider (currently Claude) and store your API key locally.
 
