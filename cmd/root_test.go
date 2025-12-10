@@ -8,10 +8,6 @@ import (
 	"github.com/spf13/viper"
 )
 
-func ExecuteNoExitForTest() error {
-	return rootCmd.Execute()
-}
-
 func useTempHomeDir(t *testing.T) func() {
 	t.Helper()
 	tmp := t.TempDir()

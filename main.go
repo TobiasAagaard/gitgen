@@ -1,5 +1,5 @@
 /*
-Copyright © 2025 NAME HERE <EMAIL ADDRESS>
+Copyright © 2025 Tobias Aagaard Christiansen <tobias@example.com>
 */
 package main
 

@@ -7,7 +7,7 @@ type Config struct {
 }
 
 type AppConfig struct {
-	AIProvider string
+	AIProvider string `mapstructure:"ai_provider"`
 }
 
 type ClaudeConfig struct {
