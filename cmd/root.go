@@ -53,7 +53,14 @@ var versionCmd = &cobra.Command{
 	},
 }
 
+var updateCmd = &cobra.Command{
+	Use:   "update",
+	Short: "Check for updates to Gitgen",
+	RunE:  runUpdateCommand,
+}
+
 func init() {
 	rootCmd.AddCommand(setupCmd)
 	rootCmd.AddCommand(versionCmd)
+	rootCmd.AddCommand(updateCmd)
 }
