@@ -8,7 +8,9 @@ import (
 	"os"
 	"os/exec"
 	"runtime"
+	"strconv"
 	"strings"
+	"time"
 
 	"github.com/TobiasAagaard/gitgen/pkg/version"
 	"github.com/spf13/cobra"
@@ -35,28 +37,73 @@ func runUpdateCommand(cmd *cobra.Command, args []string) error {
 	currentVersion = strings.TrimPrefix(currentVersion, "v")
 	latestVersion := strings.TrimPrefix(latest.TagName, "v")
 
-	if latestVersion > currentVersion {
-		fmt.Printf("New version available: %s\n", latest.TagName)
-		fmt.Println("Update by using command gitgen update")
-	} else {
-		fmt.Println("You are running the latest version.")
-	}
+	comparison := compareVersions(currentVersion, latestVersion)
 
 	fmt.Printf("Current version: %s\n", currentVersion)
 	fmt.Printf("Latest version:  %s\n", latestVersion)
 
-	fmt.Println("Updating...")
-	installCmd := exec.Command("go", "install", "github.com/TobiasAagaard/gitgen@latest")
-	installCmd.Stdout = os.Stdout
-	installCmd.Stderr = os.Stderr
+	if comparison < 0 {
+		fmt.Printf("\nNew version available: %s → %s\n", currentVersion, latestVersion)
+		fmt.Println("Updating...")
 
-	if err := installCmd.Run(); err != nil {
-		return fmt.Errorf("failed to update gitgen: %w", err)
+		installCmd := exec.Command("go", "install", "github.com/TobiasAagaard/gitgen@latest")
+		installCmd.Stdout = os.Stdout
+		installCmd.Stderr = os.Stderr
+
+		if err := installCmd.Run(); err != nil {
+			return fmt.Errorf("failed to update gitgen: %w", err)
+		}
+
+		fmt.Printf("\n✓ Successfully updated to version %s\n", latestVersion)
+		fmt.Println("Restart your shell or run 'hash -r' to use the new version.")
+	} else if comparison > 0 {
+		fmt.Println("\n✓ You are running a newer version than the latest release.")
+	} else {
+		fmt.Println("\n✓ You are already running the latest version.")
 	}
 
-	fmt.Printf("\n✓ Successfully updated to version %s\n", latestVersion)
-	fmt.Println("Restart your shell or run 'hash -r' to use the new version.")
 	return nil
+}
+
+func compareVersions(current, latest string) int {
+	current = strings.Split(current, "-")[0]
+	latest = strings.Split(latest, "-")[0]
+
+	currentParts := strings.Split(current, ".")
+	latestParts := strings.Split(latest, ".")
+
+	maxLen := len(currentParts)
+	if len(latestParts) > maxLen {
+		maxLen = len(latestParts)
+	}
+
+	for i := 0; i < maxLen; i++ {
+		currentNum := 0
+		latestNum := 0
+
+		if i < len(currentParts) {
+			var err error
+			currentNum, err = strconv.Atoi(currentParts[i])
+
+			if err != nil {
+				currentNum = 0
+			}
+		}
+		if i < len(latestParts) {
+			var err error
+			latestNum, err = strconv.Atoi(latestParts[i])
+			if err != nil {
+				latestNum = 0
+			}
+		}
+
+		if currentNum < latestNum {
+			return -1
+		} else if currentNum > latestNum {
+			return 1
+		}
+	}
+	return 0
 }
 
 func getLatestRelease() (*githubRelease, error) {
@@ -69,7 +116,9 @@ func getLatestRelease() (*githubRelease, error) {
 
 	req.Header.Set("User-Agent", fmt.Sprintf("gitgen/%s (%s/%s)", version.ShortInfo(), runtime.GOOS, runtime.GOARCH))
 
-	client := &http.Client{}
+	client := &http.Client{
+		Timeout: 10 * time.Second,
+	}
 	resp, err := client.Do(req)
 	if err != nil {
 		return nil, err
