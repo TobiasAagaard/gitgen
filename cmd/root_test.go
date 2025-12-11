@@ -1,30 +1,14 @@
 package cmd
 
 import (
-	"os"
 	"testing"
 
 	"github.com/TobiasAagaard/gitgen/internal/config"
-	"github.com/spf13/viper"
+	"github.com/TobiasAagaard/gitgen/testutils"
 )
 
-func useTempHomeDir(t *testing.T) func() {
-	t.Helper()
-	tmp := t.TempDir()
-	oldHome, had := os.LookupEnv("HOME")
-	_ = os.Setenv("HOME", tmp)
-	return func() {
-		if had {
-			_ = os.Setenv("HOME", oldHome)
-		} else {
-			_ = os.Unsetenv("HOME")
-		}
-		viper.Reset()
-	}
-}
-
 func TestRootRunsWithValidConfig(t *testing.T) {
-	cleanup := useTempHomeDir(t)
+	cleanup := testutils.UseTempHomeDir(t)
 	defer cleanup()
 
 	cfg := config.Config{
