@@ -46,7 +46,7 @@ func runUpdateCommand(cmd *cobra.Command, args []string) error {
 		fmt.Printf("\nNew version available: %s → %s\n", currentVersion, latestVersion)
 		fmt.Println("Updating...")
 
-		installCmd := exec.Command("go", "install", "github.com/TobiasAagaard/gitgen@latest")
+		installCmd := exec.Command("go", "install", "github.com/TobiasAagaard/gitgen@"+latest.TagName)
 		installCmd.Stdout = os.Stdout
 		installCmd.Stderr = os.Stderr
 
@@ -55,7 +55,7 @@ func runUpdateCommand(cmd *cobra.Command, args []string) error {
 		}
 
 		fmt.Printf("\n✓ Successfully updated to version %s\n", latestVersion)
-		fmt.Println("Restart your shell or run 'hash -r' to use the new version.")
+		fmt.Println("Restart your shell.")
 	} else if comparison > 0 {
 		fmt.Println("\n✓ You are running a newer version than the latest release.")
 	} else {
