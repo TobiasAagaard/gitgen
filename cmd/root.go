@@ -30,6 +30,13 @@ var rootCmd = &cobra.Command{
 	},
 }
 
+func Execute() {
+	err := rootCmd.Execute()
+	if err != nil {
+		os.Exit(1)
+	}
+}
+
 var setupCmd = &cobra.Command{
 	Use:   "setup",
 	Short: "Run to setup or reconfigure Gitgen",
@@ -44,13 +51,6 @@ var versionCmd = &cobra.Command{
 	Run: func(cmd *cobra.Command, args []string) {
 		fmt.Println(version.Info())
 	},
-}
-
-func Execute() {
-	err := rootCmd.Execute()
-	if err != nil {
-		os.Exit(1)
-	}
 }
 
 func init() {
