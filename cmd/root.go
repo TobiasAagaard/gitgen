@@ -39,7 +39,7 @@ func Execute() {
 
 var setupCmd = &cobra.Command{
 	Use:   "setup",
-	Short: "Run to setup or reconfigure Gitgen",
+	Short: "Run to setup or reconfigure Gitgen from terminal",
 	RunE: func(cmd *cobra.Command, args []string) error {
 		return ui.RunFirstTimeSetup()
 	},
@@ -53,7 +53,14 @@ var versionCmd = &cobra.Command{
 	},
 }
 
+var updateCmd = &cobra.Command{
+	Use:   "update",
+	Short: "Check for updates to Gitgen",
+	RunE:  runUpdateCommand,
+}
+
 func init() {
 	rootCmd.AddCommand(setupCmd)
 	rootCmd.AddCommand(versionCmd)
+	rootCmd.AddCommand(updateCmd)
 }
