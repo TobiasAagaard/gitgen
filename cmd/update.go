@@ -126,7 +126,6 @@ func getLatestRelease() (*githubRelease, error) {
 	defer resp.Body.Close()
 
 	if resp.StatusCode == http.StatusForbidden || resp.StatusCode == http.StatusTooManyRequests {
-		// Consider including Retry-After / X-RateLimit-Reset details for better UX.
 		return nil, fmt.Errorf("GitHub API rate limit exceeded. Try again later")
 	}
 
