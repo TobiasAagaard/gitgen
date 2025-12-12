@@ -129,6 +129,11 @@ func getLatestRelease() (*githubRelease, error) {
 		body, _ := io.ReadAll(resp.Body)
 		return nil, fmt.Errorf("GitHub API returned %d: %s", resp.StatusCode, string(body))
 	}
+
+	if resp.StatusCode == http.StatusForbidden || resp.StatusCode == 429 {
+		return nil, fmt.Errorf("GitHub API rate limit exceeded. Try again later")
+	}
+
 	var release githubRelease
 	if err := json.NewDecoder(resp.Body).Decode(&release); err != nil {
 		return nil, err
