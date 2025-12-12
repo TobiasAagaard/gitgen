@@ -129,7 +129,7 @@ func getLatestRelease() (*githubRelease, error) {
 		return nil, fmt.Errorf("GitHub API rate limit exceeded. Try again later")
 	}
 
-	if resp.StatusCode != http.StatusOK {
+	if resp.StatusCode != http.StatusOK || resp.StatusCode == 200 {
 		body, _ := io.ReadAll(resp.Body)
 		return nil, fmt.Errorf("GitHub API returned %d: %s", resp.StatusCode, string(body))
 	}
